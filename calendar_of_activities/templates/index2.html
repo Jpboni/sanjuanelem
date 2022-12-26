@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% block content %}
+
+<head> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar of Activities|SJES</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+      <body>
+       
+        
+          
+     <h5 class="card-header text-center pt-4 ">Calendar of Activities</h5>
+     <br>
+ 
+    {% for post in post_list %} 
+
+
+
+
+
+  <div class="d-flex flex-column" id="center">
+    <div class="list-item" style="border-style:solid;padding: 10px; border-radius: 5px;border-color: rgb(114, 108, 108);">
+      <div class="list-item__title">{{post.title}}</div>
+      <div class="card event-card card-rounded " style="padding: 20px 0px 0px 0px;width:100%;">
+        <div class="container event-card-title text-center">
+        </div>
+        <div class="card-calendar text-center">
+          <div class="col-date-time">
+            <span class="col-day ">Month</span>
+            {{post.date_of_event|date:"jS"}}
+            <span class="col-monthy" > {{post.date_of_event|date:"M"}}</span>
+          </div>
+          <div class="col-event-time"style="padding-left: 8px;">
+            <ul>
+              <li>
+                <i class="fas fa-calendar-day"></i>&nbsp;{{post.date_of_event|date:"D"}}
+                <hr style=' margin-top: 0em;margin-bottom: 0em;' />
+                <li>{{post.content}}</li>
+                <br>
+              </li>
+              <li>
+                
+              </li>
+            </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+    {% endfor %}
+
+    <div class="list-item">
+      <div class="list-item__title">{{post.date_of_event|date:"M"}}</div>
+      <div class="list-item__description">{{post.date_of_event|date:"D"}}</div>
+    </div>
+
+
+    
+<br>
+<div class="container-sm">
+    <h5 class="card-header" >Holidays</h5>
+      <div class="table-responsive-sm"  style="max-width: 100%;">
+      <table class="table table-striped ">
+        <tr class="header">
+            <th > Name of the Holiday</th>
+            <th>Date</th>
+        </tr>
+        <tr>
+            
+            <td>All Saints' Day</td>
+            <td>November 1</td>
+        </tr>
+        <tr>
+            
+            <td>Bonifacio Day</td>
+            <td>November 30</td>
+        </tr>
+        <tr>
+            
+            <td>Feast of the Immaculate Conception of Mary</td>
+            <td>12/8</td>
+        </tr>
+        <tr>
+            
+            <td>Christmas Day</td>
+            <td>12/25</td>
+        </tr>
+        <tr>
+            
+            <td>Rizal Day</td>
+            <td>12/30</td>
+        </tr>
+        <tr>
+           
+            <td>EDSA People Power Revolution Anniversary</td>
+            <td>2/25</td>
+        </tr>
+        <tr>
+            
+            <td>Araw ng Kagitingan</td>
+            <td>4/9</td>
+        </tr>
+
+                </tr>
+    </table>
+    <center><p><a class="scroll" data-speed="2000" href="#top">Back to the top</a></p></center>
+   </div>
+    </div>
+    
+  </div>
+</div>
+</div>
+</div>
+</body>
+
+<style type="text/css">
+
+body{
+
+
+
+  
+}
+#center{
+  padding-top: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.list-item{
+  width: 60%;
+}
+.event-card-title {
+  margin-bottom: 5em;
+  
+  
+}
+
+.card-calendar {
+  height: 6em;
+  border-top: 2px solid #ecf0f1;
+  width: 100%;
+  background: white;
+  position: absolute;
+  bottom: 0;
+}
+
+.col-date-time {
+  height: 100%;
+  width: 35%;
+  float: left;
+  border-right: 2px solid #e5e5e5;
+  text-align: center;
+}
+
+.col-event-time {
+  float: right;
+  width: 65%;
+}
+
+.col-event-time ul {
+  padding: 0;
+}
+
+.col-event-time li {
+  list-style-type: none;
+  text-align: left;
+  padding-bottom: 0.2em;
+}
+
+.col-day,
+.col-date,
+.col-month {
+  display: block;
+}
+
+.col-day {
+  background-color: #8e4bf8;
+  padding: 0.3em;
+  color: white;
+  font-weight: bold;
+}
+
+.col-date {
+  font-size: 1.5em;
+}
+
+.col-month {
+  color: black;
+}
+
+.col-time {
+  border-bottom: 2px solid #e5e5e5;
+}
+
+@media screen and (max-width: 600px) {
+  
+  .list-item {
+    width: 95%;
+  }
+}
+</style>
+{%endblock%}
+</html>

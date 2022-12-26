@@ -1,0 +1,42 @@
+{% block content %}
+<h1><br><br>CERTIFICATE PRINTING ENGINE<br><br></h1>
+<form action ="returnCert">
+    <h4>
+    Enter First Name: <input type="text" name="first" placeholder="first name" required>
+    Enter Last Name: <input type="text" name="last" placeholder="last name" required><br><br>
+    Enter date of completion: <input type='date' name="date" required><br><br>
+    Enter Template file path: <input type='file' name="inFile" required><br><br>
+    Name Position:<br>
+    X: <input type='number' name="xtext" value="450"> Y: <input type='number' name="ytext" value="320"><br><br>
+    Date Position<br>
+    X: <input type='number' name="xdate" value="275"> Y: <input type='number' name="ydate" value="735"><br><br>
+    Name Format<br>
+    <label for="tFont">Font Type:</label>
+    <select name="tFont" id="tFont">
+        <option value="arialbd.ttf">Arial Bold</option>
+        <option value="calibrib.ttf">Calibri Bold</option>
+        <option value="consolab.ttf">Consolas Bold</option>
+        <option value="georgiab.ttf">Georgia Bold</option>
+        <option value="timesbd.ttf">Times New Roman Bold</option>
+    </select>
+Font Size: <input type='number' name="sizeText" value="50"><br><br>
+Date Format<br>
+    <label for="dFont">Font Type:</label>
+    <select name="dFont" id="dFont">
+        <option value="arialbd.ttf">Arial Bold</option>
+        <option value="calibrib.ttf">Calibri Bold</option>
+        <option value="consolab.ttf">Consolas Bold</option>
+        <option value="georgiab.ttf">Georgia Bold</option>
+        <option value="timesbd.ttf">Times New Roman Bold</option>
+    </select>
+Font Size: <input type='number' name="sizeDate" value="25"><br><br>
+Text Color: <br>  
+RED: <input type="number" name="RED" min="0" max="255" value="0">  
+GREEN<input type="number" name="GREEN" min="0" max="255" value="0">
+BLUE: <input type="number" name="BLUE" min="0" max="255" value="0"><br>
+</h4>
+<br>
+<button type="reset">Reset</button>
+<button type="submit">Create Certifiacte</button>
+</form>
+{% endblock%}

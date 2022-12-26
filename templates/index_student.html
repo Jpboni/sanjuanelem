@@ -1,0 +1,154 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>{% block title %}{% endblock title %}</title>
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icon/resized_logo.png' %}">
+
+
+     <link rel="stylesheet" href="{% static 'styles/bootstrap-select.min.css' %}">
+     <link rel="stylesheet" href="{% static 'styles/nav_style.css' %}">
+     <link rel="stylesheet" href="{% static 'styles/all.min.css' %}">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/solid.min.js" integrity="sha512-F0Gp9qi8/3qyo+62Pi1ZgGe6hAUxPbzOnqhhpJYAMUGDmOys95dCRCVYfQawlUeoGp1Rj/K9V7NboA9sQ9BtKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+     {{ form.media }}
+   </head>
+   <body>
+      <div id="preloader">
+         <div class="sk-three-bounce">
+             <div class="sk-child sk-bounce1"></div>
+             <div class="sk-child sk-bounce2"></div>
+             <div class="sk-child sk-bounce3"></div>
+         </div>
+     </div>
+     <!--*******************
+         Preloader end
+     ********************-->
+ 
+     <!--**********************************
+         Main wrapper start
+     ***********************************-->
+     <div id="main-wrapper">
+ 
+         <!--**********************************
+             Nav header start
+         ***********************************-->
+         <div class="nav-header">
+            <a href="#" class="brand-logo">
+                <img class="logo-abbr" src="{% static 'images/icon/resized_logo.png' %}" alt="SJE">
+                <img class="logo-compact" src="" alt="">
+                <img class="brand-title" src="{% static 'images/icon/sjes.png' %}" alt="">
+            </a>
+        
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+                    Nav header end
+                ***********************************-->
+        
+        <!--**********************************
+                    Header start
+                ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+                            <div class="search_bar dropdown">
+                                <span class="search_icon p-3 c-pointer" data-toggle="dropdown">
+                                    <i id="searchBtn" class="fas fa-search" style=margin-top:5px;></i>
+                                    
+                                </span>
+                                <div class="dropdown-menu p-0 m-0">
+                                    <form class="d-flex" action=" {% url 'search' %}" method="GET">
+                                        <input id="searchIn" class="form-control" type="search" placeholder="Search" aria-label="Search" name="q">
+                                        <button id="searchBtn" class="btn btn-outline-primary btn-sm" style=margin:4px;height:35px;>Search</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <ul class="navbar-nav header-right">
+       
+
+                           <li class="nav-item"><a class="nav-item" 
+                            style=color:white;      
+                            href='{% block profile %}{% endblock profile %}' title="Check your profile">{% block user %}{% endblock  %}</a>
+                           
+                         </li>
+
+               
+
+                            <li class="nav-item dropdown header-profile">
+                            <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                <i class="fas fa-caret-down"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">                       
+                                    <a href="{% url 'std_logout' %}" type="text" class="dropdown-item ai-icon" > 
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span class="nav-text"> Log-out</span>
+                                        </a>
+        
+        
+        
+    
+        
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+                    Header end ti-comment-alt
+                ***********************************-->
+        
+        <!--**********************************
+                    Sidebar start
+                ***********************************-->
+                
+        <div class="dlabnav">
+            <div class="dlabnav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label first">Main Menu</li>
+                    <li><a class="ai-icon" href="{% block courses %}{% endblock courses %}" aria-expanded="false">
+                     <i class="fas fa-home"></i>
+                            <span class="nav-text">Dashboard</span></a>
+                           
+                        </a></li>
+
+        
+                </ul>
+        
+        
+                </li>
+            </div>
+        </div>
+        
+     
+     
+
+      {% block  content %}
+      {% endblock  %}
+     
+     
+      <script src=" {% static 'js/bootstrap.bundle.min.js' %} "></script>
+      <script src="{% static 'vendor/global.min.js' %}"></script>
+      <script src="{% static 'js/custom.min.js' %}"></script>
+      <script src="{% static 'js/dashboard/dashboard-2.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'js/all.min.js' %}">
+
+   </body>
+</html>

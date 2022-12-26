@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FAQ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icon/resized_logo.png' %}">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+<div class="row">
+	<div class="col-md-3">
+
+		<!-- Tips Widget -->
+		<!--===================================================-->
+		<div class="mar-btm">
+			<h4 class="text-thin">  Quick Links</h4>
+			<p class="text-muted mar-top"></p>
+			<div class="list-group bg-trans">
+				<a class="list-group-item" href="{% url 'landing_page'%}"><span class="fas fa-home"></i></span> Home</a>
+				<a class="list-group-item" href="/student"><span class="fas fa-sign-in-alt"></span> Login</a>
+
+			</div>
+
+		</div>
+		<!--===================================================-->
+
+		<hr>
+
+		<!-- Contact us widget -->
+		<!--===================================================-->
+		<div class="mar-btm">
+			<h4 class="text-thin"><i class="fa fa-question-circle fa-lg fa-fw text-primary"></i> Can't find the answer? </h4>
+			<p class="text-muted mar-top">For more question, please coordinate with your admin, teacher or simply use our feedback page for inquiries. </p>
+		
+		</div>
+		<!--===================================================-->
+
+	</div>
+	<div class="col-md-9">
+		<div class="panel">
+			<div class="panel-body">
+
+        <!-- STUDENT HELP -->
+        <!--===================================================-->
+        <h3 class="pad-all bord-btm text-thin">Students Help</h3>
+        <div id="demo-gen-faq" class="panel-group accordion">
+          <div class="bord-no pad-top">
+
+            <!-- Question -->
+            <div class="text-semibold pad-hor text-lg">
+              <a href="#demo-gen-faq1" data-toggle="collapse" data-parent="#demo-gen-faq">I don’t know my login credentials ?</a>
+            </div>
+
+            <!-- Answer -->
+            <div id="demo-gen-faq1" class="panel-collapse collapse">
+              <div class="pad-all">
+                You can login to your account using your school Learner Reference Number (LRN) and for the password Lastname and birthdate.
+                <br></br>
+
+                <p>San Juan Elementary School Login credentials format:
+                <br>
+                ID [2000 . last five digits of your ID Number]
+                <br>
+                Password: Last name + birthdate (YYYYMMDD)
+              </p>
+
+                <p>Sample:
+                <br>
+                ID:20010121
+                <br>
+                Password:Sanjuan20010121
+                </p>
+
+                *Passwords are case sensitive, so make sure you enter it with the first letter of your last name in UPPERCASE.
+
+                <br></br>
+
+
+              
+              <img class='img-responsive' src="{% static '/images/icon/FAQ_LOG_IN_.png' %}" class="img-fluid" alt="Not Available">
+
+
+
+
+              </div>
+            </div>
+          </div>
+          <div class="bord-no pad-top">
+<hr>
+            <!-- Question -->
+            <div class="text-semibold pad-hor text-lg">
+              <a href="#demo-gen-faq2" data-toggle="collapse" data-parent="#demo-gen-faq">I forgot my password ?</a>
+            </div>
+
+            <!-- Answer -->
+            <div id="demo-gen-faq2" class="panel-collapse collapse">
+              <div class="pad-all">
+                You may contact our mail through our feedback page. For the meantime contact your adviser for assistance.
+              </div>
+            </div>
+          </div>
+          <div class="bord-no pad-top">
+<hr>
+            <!-- Question -->
+            <div class="text-semibold pad-hor text-lg">
+              <a href="#demo-gen-faq3" data-toggle="collapse" data-parent="#demo-gen-faq">I have missing subjects ?</a>
+            </div>
+
+            <!-- Answer -->
+            <div id="demo-gen-faq3" class="panel-collapse collapse">
+              <div class="pad-all">
+                Please inform your school to update your class assignment. Further, you may send an email at feedback page
+              </div>
+            </div>
+          </div>
+          <div class="bord-no pad-top">
+<hr>
+            <!-- TEACHER HELP -->
+            <!--===================================================-->
+            <h3 class="pad-all bord-btm text-thin">Teachers Help</h3>
+            <div id="demo-gen-faq" class="panel-group accordion">
+              <div class="bord-no pad-top">
+
+                <!-- Question -->
+                <div class="text-semibold pad-hor text-lg">
+                  <a href="#demo-gen-faq4" data-toggle="collapse" data-parent="#demo-gen-faq">I don’t know my SJE eLMS login credentials ?</a>
+                </div>
+
+                <!-- Answer -->
+                <div id="demo-gen-faq4" class="panel-collapse collapse">
+                  <div class="pad-all">
+                    For your LMS login credentials, you may coordinate with your Admin Head.
+                  </div>
+                </div>
+              </div>
+              <div class="bord-no pad-top">
+
+<hr>
+                <!-- Question -->
+                <div class="text-semibold pad-hor text-lg">
+                  <a href="#demo-gen-faq5" data-toggle="collapse" data-parent="#demo-gen-faq">I don’t have any assigned courses ?</a>
+                </div>
+
+                <!-- Answer -->
+                <div id="demo-gen-faq5" class="panel-collapse collapse">
+                  <div class="pad-all">
+                    Please inform your admin head office in about in this issue.
+                  </div>
+                </div>
+              </div>
+              <div class="bord-no pad-top">
+<hr>
+                <!-- Question -->
+                <div class="text-semibold pad-hor text-lg">
+                  <a href="#demo-gen-faq6" data-toggle="collapse" data-parent="#demo-gen-faq">I have missing students in my courses ?</a>
+                </div>
+
+                <!-- Answer -->
+                <div id="demo-gen-faq6" class="panel-collapse collapse">
+                  <div class="pad-all">
+                    You can manually enroll students via People picker or provide them with the course access code for self-enrollment.
+                </div>
+              </div>
+
+
+
+
+
+
+
+<style type="text/css">
+body{ margin-top:20px;
+background:#eee;
+}
+
+
+.mar-btm {
+    margin-bottom: 15px
+}
+
+.list-group.bg-trans .list-group-item:not(.active):not(.disabled) {
+    background-color: transparent;
+    border-color: transparent;
+    color: inherit
+}
+
+.list-group.bg-trans .list-group-item .disabled {
+    opacity: .5
+}
+
+.list-group.bg-trans a.list-group-item:hover:not(.active) {
+    background-color: rgba(0, 0, 0, 0.05)
+}
+.list-group.bord-no .list-group-item {
+    border-color: transparent
+}
+
+.list-group .list-divider {
+    display: block
+}
+
+.list-group-item {
+    border-color: #e9e9e9
+}
+
+.list-group-item-heading {
+    margin-top: 5px
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0
+}
+
+.list-group-item:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0
+}
+
+.list-group-item .list-group-item.disabled,
+.list-group-item .list-group-item.disabled:hover,
+.list-group-item .list-group-item.disabled:focus {
+    background-color: rgba(0, 0, 0, 0.07);
+    border-color: transparent
+}
+
+.list-group-item.active,
+.list-group-item.active:hover,
+.list-group-item.active:focus {
+    background-color: #54abd9;
+    border-color: #54abd9;
+    color: #fff
+}
+
+.list-group-item.active .list-group-item-text,
+.list-group-item.active:hover .list-group-item-text,
+.list-group-item.active:focus .list-group-item-text {
+    color: #fff
+}
+
+.a.list-group-item:hover,
+.a.list-group-item:focus {
+    background-color: rgba(0, 0, 0, 0.05)
+}
+
+.a.list-group-item-primary,
+.list-group-item-primary {
+    background-color: #7cb3e3;
+    border-color: transparent;
+    color: #fff
+}
+
+.a.list-group-item-primary:hover,
+.a.list-group-item-primary:focus {
+    background-color: #89bae6;
+    color: #fff
+}
+
+.a.list-group-item-info,
+.list-group-item-info {
+    background-color: #64c6e2;
+    border-color: transparent;
+    color: #fff
+}
+
+.a.list-group-item-info:hover,
+.a.list-group-item-info:focus {
+    background-color: #71cbe4;
+    color: #fff
+}
+
+.a.list-group-item-success,
+.list-group-item-success {
+    background-color: #a3d272;
+    border-color: transparent;
+    color: #fff
+}
+
+.a.list-group-item-success:hover,
+.a.list-group-item-success:focus {
+    background-color: #aad57e;
+    color: #fff
+}
+
+.a.list-group-item-warning,
+.list-group-item-warning {
+    background-color: #f3b961;
+    border-color: transparent;
+    color: #fff
+}
+
+.a.list-group-item-warning:hover,
+.a.list-group-item-warning:focus {
+    background-color: #f4bf70;
+    color: #fff
+}
+
+.a.list-group-item-danger,
+.list-group-item-danger {
+    background-color: #f9826b;
+    border-color: transparent;
+    color: #fff
+}
+
+.a.list-group-item-danger:hover,
+.a.list-group-item-danger:focus {
+    background-color: #f98e7a;
+    color: #fff
+}
+
+.a.list-group-item-mint,
+.list-group-item-mint {
+    background-color: #5ed4b2;
+    border-color: transparent;
+    color: #fff
+}
+
+.a.list-group-item-mint:hover,
+.a.list-group-item-mint:focus {
+    background-color: #6ad7b8;
+    color: #fff
+}
+
+.a.list-group-item-purple,
+.list-group-item-purple {
+    background-color: #af69a4;
+    border-color: transparent;
+    color: #fff
+}
+
+.a.list-group-item-purple:hover,
+.a.list-group-item-purple:focus {
+    background-color: #b473aa;
+    color: #fff
+}
+
+.a.list-group-item-pink,
+.list-group-item-pink {
+    background-color: #e899bb;
+    border-color: transparent;
+    color: #fff
+}
+
+.a.list-group-item-pink:hover,
+.a.list-group-item-pink:focus {
+    background-color: #eba5c3;
+    color: #fff
+}
+
+.a.list-group-item-dark,
+.list-group-item-dark {
+    background-color: #44494d;
+    border-color: transparent;
+    color: #fff
+}
+
+.a.list-group-item-dark:hover,
+.a.list-group-item-dark:focus {
+    background-color: #4b5155;
+    color: #fff
+}
+
+
+.badge:empty.badge-icon {
+    display: inline-block;
+    width: .7em;
+    height: .7em;
+    padding: 0;
+    min-width: 5px;
+    margin: .5em;
+    border-radius: 50%
+}
+
+.badge.badge-fw,
+.badge:empty.badge-fw {
+    margin-right: 1em
+}
+
+.badge-default {
+    background-color: #e3e8ee;
+    color: #333
+}
+
+.badge-primary {
+    background-color: #5fa2dd
+}
+
+.badge-info {
+    background-color: #46bbdc
+}
+
+.badge-success {
+    background-color: #91c957
+}
+
+.badge-warning {
+    background-color: #f1aa40
+}
+
+.badge-danger {
+    background-color: #f76549
+}
+
+.badge-mint {
+    background-color: #42cca5
+}
+
+.badge-purple {
+    background-color: #9f5594
+}
+
+.badge-pink {
+    background-color: #e17ca7
+}
+
+.badge-dark {
+    background-color: #33373a
+}
+
+.pad-all {
+    padding: 5px;
+}
+
+.text-thin {
+    font-weight: 300;
+}
+.bord-btm {
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.image-fluid{
+  width: 200px;
+  height: 200px;
+}
+</style>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

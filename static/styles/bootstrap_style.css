@@ -1,0 +1,51 @@
+html{
+  scroll-behavior: smooth;
+}
+
+
+
+
+.divider {
+  height:2%;
+  min-height: 300px;
+  background-image: url('../../../assets/img/divider.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat ;
+  box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);
+
+}
+
+
+#contactus-section .contact-name {
+  margin-bottom: 30px;
+}
+
+#contactus-section .contact-name h5 {
+  font-size: 22px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+#contactus-section .contact-name p {
+  font-size: 18px;
+  margin: 0;
+
+}
+
+
+#contactus-section .section-title p {
+font-size: 28px;
+
+}
+
+
+#contactus-section .lms-btn {
+  padding: 0 px 0 20px;
+  color: green;
+  border: 1px solid grey;
+
+  font-weight: 700;
+  text-decoration: none;
+}
