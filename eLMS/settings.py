@@ -47,8 +47,9 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'froala_editor',
     'import_export',
-    'polls',
-    'calendar_of_activities'
+    'calendar_of_activities',
+    'module',
+    'page',
     
 
 

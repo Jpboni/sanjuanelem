@@ -1,6 +1,8 @@
 from django.db import models
 from froala_editor.fields import FroalaField
+from django.core.validators import MinLengthValidator
 # Create your models here.
+
 
 STATUS = ((0, "Draft"),(2,"Archived"), (1, "Published"))
 
@@ -11,7 +13,7 @@ class Student(models.Model):
     student_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100, null=False)
     email = models.EmailField(max_length=100, null=True, blank=True)
-    password = models.CharField(max_length=255, null=False)
+    password = models.CharField(max_length=255, null=False,validators=[MinLengthValidator(8)])
     role = models.CharField(
         default="Student", max_length=100, null=False, blank=True)
     course = models.ManyToManyField(
@@ -39,13 +41,10 @@ class Faculty(models.Model):
     faculty_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100, null=False)
     email = models.EmailField(max_length=100, null=True, blank=True)
-    password = models.CharField(max_length=255, null=False)
-    department = models.ForeignKey(
-        'Department', on_delete=models.CASCADE, null=False, related_name='faculty')
-    role = models.CharField(
-        default="Faculty", max_length=100, null=False, blank=True)
-    photo = models.ImageField(upload_to='profile_pics', blank=True,
-                              null=False, default='profile_pics/default_faculty.png')
+    password = models.CharField(max_length=255, null=False, validators=[MinLengthValidator(8)])
+    department = models.ForeignKey('Department', on_delete=models.CASCADE, null=False, related_name='faculty')
+    role = models.CharField(default="Faculty", max_length=10, null=False, blank=True)
+    photo = models.ImageField(upload_to='profile_pics', blank=True,null=False, default='profile_pics/default_faculty.png')
 
     def delete(self, *args, **kwargs):
         if self.photo != 'profile_pics/default_faculty.png':
@@ -83,10 +82,8 @@ class Department(models.Model):
 class Course(models.Model):
     code = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255, null=False, unique=True)
-    department = models.ForeignKey(
-        Department, on_delete=models.CASCADE, null=False, related_name='courses')
-    faculty = models.ForeignKey(
-        Faculty, on_delete=models.SET_NULL, null=True, blank=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=False, related_name='courses')
+    faculty = models.ForeignKey(Faculty, on_delete=models.SET_NULL, null=True, blank=True)
     #studentKey = models.IntegerField(null=False, unique=True)
     #facultyKey = models.IntegerField(null=False, unique=True)
 
@@ -102,7 +99,7 @@ class Announcement(models.Model):
     course_code = models.ForeignKey(Course, on_delete=models.CASCADE, null=False)
     datetime = models.DateTimeField(auto_now_add=True, null=False)
     description = FroalaField()
-    status = models.IntegerField(choices=STATUS, default=0)
+    status = models.IntegerField(choices=STATUS, default=1)
 
     class Meta:
         verbose_name_plural = "Announcements"
@@ -123,7 +120,7 @@ class Assignment(models.Model):
     deadline = models.DateTimeField(null=False)
     file = models.FileField(upload_to='assignments/', null=True, blank=True)
     marks = models.DecimalField(max_digits=6, decimal_places=2, null=False)
-    status = models.IntegerField(choices=STATUS, default=0)
+    status = models.IntegerField(choices=STATUS, default=1)
     class Meta:
         verbose_name_plural = "Assignments"
         ordering = ['-datetime']
@@ -190,8 +187,7 @@ class Submission(models.Model):
 
 
 class Material(models.Model):
-    course_code = models.ForeignKey(
-        Course, on_delete=models.CASCADE, null=False)
+    course_code = models.ForeignKey(Course, on_delete=models.CASCADE, null=False)
     description = models.TextField(max_length=2000, null=False)
     datetime = models.DateTimeField(auto_now_add=True, null=False)
     file = models.FileField(upload_to='materials/', null=True, blank=True)

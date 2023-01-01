@@ -19,9 +19,38 @@
 {% block content %}
 
 <div class="content-body">
+
+   <div class="container ">
+      <div class="card">
+         <ol class="breadcrumb p-3">
+            <li class="breadcrumb-item fw-bold"><a class="breadcrumb-item active" aria-current="page">Your Subjects </a>
+            </li>
+         </ol>
+
+         <div class="card-body ">
+              
+
+                  
+                      <a class="text-decoration-none text-primary">
+                          <div class="card  my-card bg-light shadow-sm text-center p-3">
+                           <i class="fas fa-book"></i> <h4>Subject Available</h4>
+                              <h3>{{courses.count}} </h3>
+                          
+                      </a>
+                  </div>
+              </div>
+          
+      </div>
+
+
+
+<div>
+
+
 <div class="container">
    <!-- navigation links -->
    <div class="container shadow-sm">
+      <div class="card">
       <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
          <ol class="breadcrumb p-3">
             <li class="breadcrumb-item active animate__animated animate__backInRight" aria-current="page">All courses</li>
@@ -29,6 +58,7 @@
       </nav>
    </div>
    <!-- navigation links end -->
+   <div class="card-body">
    <div class="row gy-5">
       {% if courses %}
       {% for course in courses%}
@@ -63,6 +93,7 @@
    {% else %}
    <div class="text-center h4 text-secondary">No courses to show</div>
    {% endif %}
+</div>
 </div>
 </div>
 {% endblock  %}

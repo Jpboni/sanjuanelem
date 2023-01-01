@@ -1,0 +1,119 @@
+{% extends 'index_student.html' %}
+{% load static %}
+{% block title %} {{ course.name }} | eLMS {% endblock title %}
+{% block profile %}
+{% url 'profile' student.student_id %}
+{% endblock %}
+{% block user %}
+{{student.name}}
+{% endblock user %}
+{% block courses %}
+{% url 'myCourses' %}
+{% endblock courses %}
+{% block allCourses %}
+{% url 'courses' %}
+{% endblock allCourses %}
+{% block content %}
+
+<div class="content-body">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3 col-md-3">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+
+            </div>
+          </div>
+          </div>
+          </div>
+          </div>
+
+          <div class="container shadow-sm">
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+               <ol class="breadcrumb p-3">
+                  {% if faculty %}
+                  <li class="breadcrumb-item fw-bold"><a style="color: rgb(10, 10, 48)" href="{% url 'facultyCourses' %}">My
+                        Courses</a>
+                  </li>
+                  <li class="breadcrumb-item fw-bold"><a style="color: rgb(10, 10, 48)"
+                        href="{% url 'faculty' course.code %}">{{ course.name }}</a></li>
+                  {% else %}
+                  <li class="breadcrumb-item fw-bold"><a style="color: rgb(10, 10, 48)" href="{% url 'myCourses' %}">My
+                        Courses</a>
+                  </li>
+                  <li class="breadcrumb-item fw-bold"><a style="color: rgb(10, 10, 48)"
+                        href="{% url 'course' course.code %}">{{ course.name }}</a></li>
+                  {% endif %}
+                  <li class="breadcrumb-item active animate__animated animate__backInRight" aria-current="page">Module</li>
+               </ol>
+            </nav>
+         </div>
+         
+
+
+    <div class="rounded p-3 m-3 shadow border border-top-0 border-end-0 border-bottom-0 border-primary border-5">
+      <div class="animate__animated animate__zoomInDown d-flex justify-content-between border-bottom border-1 mb-2">
+         <h5 class="fw-bold" style="color: rgb(10, 10, 48);"><i class="fas fa-book-reader fa-lg"></i><span style="margin-right: 0.6rem;"></span>Modules
+         </h5>
+
+      </div>
+
+         
+<div class="row">
+<div class="col s9">
+
+  {% for module in module %}
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{module.id}}" aria-expanded="true" aria-controls="collapseOne">
+          {{ module.title }}
+        </button>
+      </h2>
+   
+
+      {% for page in module.pages.all %}
+      <div id="collapseOne{{module.id}}" class="panel-collapse collapse in">
+        <li><a href="{% url 'page-detail-student' course.code module.id page.id %}" class="list-group-item"> <i class="fas fa-book fa-lg fa-pull-left"></i>{{ page.title }}</a></li>
+
+
+        
+        
+
+</div>
+
+        {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+
+
+  
+</div>
+
+
+</div>
+<style>
+
+#accordion .glyphicon { margin-right:0; }
+.panel-collapse>.list-group .list-group-item:first-child {border-top-right-radius: 0;border-top-left-radius: 0;}
+.panel-collapse>.list-group .list-group-item {border-width: 2px 0;}
+.panel-collapse>.list-group {margin-bottom: 0;}
+.panel-collapse .list-group-item {border-radius:0;}
+
+
+         
+
+
+
+
+</style>
+
+
+{% endblock %}

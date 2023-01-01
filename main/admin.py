@@ -7,7 +7,7 @@ from import_export import resources
 from .models import Student, Faculty, Course, Department, Assignment, Announcement, Material
 
 
-#faculty
+#student
 
 class StudentResource(resources.ModelResource):
     class Meta:
@@ -45,8 +45,6 @@ class Facultyadmin (ImportExportModelAdmin):
     resource_class = FacultyResource
 
 admin.site.register(Faculty,Facultyadmin)
-
-
 
 
 
@@ -106,7 +104,7 @@ def make_archived(AssignmentAdmin, request, queryset):
 
 class AssignmentAdmin(admin.ModelAdmin):
     search_fields=['title','datetime','description','deadline']
-    list_display=['title','deadline','datetime','description']
+    list_display=['title','deadline','datetime','description','status']
     list_filter=['title','deadline','datetime','description','status']
     actions = [make_draft,make_published,make_archived]
 

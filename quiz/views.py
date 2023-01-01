@@ -4,30 +4,54 @@ from .models import Quiz, Question, StudentAnswer
 from main.models import Student, Course, Faculty
 from main.views import is_faculty_authorised, is_student_authorised
 from django.contrib import messages
-
+from .forms import QuizForm, QuestionForm
 
 
 def quiz(request, code):
-    try:
-        course = Course.objects.get(code=code)
-        if is_faculty_authorised(request, code):
-            if request.method == 'POST':
-                title = request.POST.get('title')
-                description = request.POST.get('description')
-                start = request.POST.get('start')
-                end = request.POST.get('end')
-                publish_status = request.POST.get('checkbox')
-                quiz = Quiz(title=title, description=description, start=start,
-                            end=end, publish_status=publish_status, course=course)
-                quiz.save()
-                return redirect('addQuestion', code=code, quiz_id=quiz.id)
-            else:
-                return render(request, 'quiz/quiz.html', {'course': course, 'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id'])})
+    if is_faculty_authorised(request, code):
+        form = QuizForm()
+        if request.method == 'POST':
+            form = QuizForm(request.POST)
+            form.instance.course = Course.objects.get(code=code)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Quiz added successfully.')
+                return redirect('/allQuizzes/' + str(code))
 
-        else:
-            return redirect('std_login')
-    except:
-        return render(request, 'error.html')
+            form = QuizForm()
+        return render(request, 'quiz/quiz.html', {'course': Course.objects.get(code=code), 'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id']), 'form': form})
+    else:
+        return redirect('std_login')
+
+
+def editQuiz(request, code, id):
+    if is_faculty_authorised(request, code):
+        quiz = Quiz.objects.get(course=code, id=id)
+        form = QuizForm(instance=quiz)
+        context = {
+            'quiz': quiz,
+            'course': Course.objects.get(code=code),
+            'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id']),
+            'form': form
+        }
+        return render(request, 'quiz/update-quiz.html/', context)
+    else:
+        return redirect('std_login')
+
+def updateQuiz(request, code, id):
+    if is_faculty_authorised(request, code):
+        try:
+            quiz = Quiz.objects.get(course=code, id=id)
+            form = QuizForm(request.POST or None, instance=quiz) 
+            if form.is_valid():
+                form.save()
+                messages.info(request, 'Quiz updated successfully.')
+                return redirect('/allQuizzes/' + str(code))
+        except:
+            return redirect('/allQuizzes/' + str(code))
+
+    else:
+        return redirect('std_login')
 
 
 def deleteQuiz(request, code, id):
@@ -35,46 +59,42 @@ def deleteQuiz(request, code, id):
         course = Course.objects.get(code=code)
         quiz = Quiz.objects.get(course=course, id=id)
         quiz.delete()
-        messages.warning(request, 'Course material deleted')
+        messages.warning(request, 'Quiz deleted succesfully')
         return redirect('/allQuizzes/' + str(code))
     else:
         return redirect('std_login')
 
 
-
-
-def addQuestion(request, code, quiz_id):
+def addQuestion(request, code,quiz_id):
     try:
-        course = Course.objects.get(code=code)
         if is_faculty_authorised(request, code):
-            quiz = Quiz.objects.get(id=quiz_id)
+            form = QuestionForm()
             if request.method == 'POST':
-                question = request.POST.get('question')
-                option1 = request.POST.get('option1')
-                option2 = request.POST.get('option2')
-                option3 = request.POST.get('option3')
-                option4 = request.POST.get('option4')
-                answer = request.POST.get('answer')
-                marks = request.POST.get('marks')
-                explanation = request.POST.get('explanation')
-                question = Question(question=question, option1=option1, option2=option2,
-                                    option3=option3, option4=option4, answer=answer, quiz=quiz, marks=marks, explanation=explanation)
-                question.save()
-                messages.success(request, 'Question added successfully')
+                form = QuestionForm(request.POST)
+                #form.instance.course = Course.objects.get(code=code)
+                form.instance.quiz = Quiz.objects.get(id=quiz_id)
+                if form.is_valid():
+                    messages.success(request, 'Question added successfully.')  
+                    form.save()
+                    form = QuestionForm()
             else:
-                return render(request, 'quiz/addQuestion.html', {'course': course, 'quiz': quiz, 'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id'])})
+                form = QuestionForm()
+                return render(request, 'quiz/addQuestion.html', {'course': Course.objects.get(code=code), 'quiz': Quiz.objects.get(id=quiz_id), 'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id']), 'form': form})   
+            
             if 'saveOnly' in request.POST:
-                return redirect('allQuizzes', code=code)
-            return render(request, 'quiz/addQuestion.html', {'course': course, 'quiz': quiz, 'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id'])})
+                    return redirect('allQuizzes', code=code)
+            return render(request, 'quiz/addQuestion.html', {'course': Course.objects.get(code=code), 'quiz': Quiz.objects.get(id=quiz_id),'faculty': Faculty.objects.get(faculty_id=request.session['faculty_id']),'form': form})
         else:
             return redirect('std_login')
     except:
         return render(request, 'error.html')
 
+
+
 def allQuizzes(request, code):
     if is_faculty_authorised(request, code):
         course = Course.objects.get(code=code)
-        quizzes = Quiz.objects.filter(course=course)
+        quizzes = Quiz.objects.filter(status=1,course=course)
         for quiz in quizzes:
             quiz.total_questions = Question.objects.filter(quiz=quiz).count()
             if quiz.start < datetime.datetime.now():
@@ -87,13 +107,13 @@ def allQuizzes(request, code):
         return redirect('std_login')
 
 
-# REFACTOR THIS
+
 def myQuizzes(request, code):
     if is_student_authorised(request, code):
         course = Course.objects.get(code=code)
         quizzes = Quiz.objects.filter(course=course)
         student = Student.objects.get(student_id=request.session['student_id'])
-        # check if that student has already attempted this quiz
+        
         for quiz in quizzes:
             student_answers = StudentAnswer.objects.filter(
                 student=student, quiz=quiz)
@@ -173,7 +193,7 @@ def studentAnswer(request, code, quiz_id):
             answer = request.POST.get(str(question.id))
             student_answer = StudentAnswer(student=student, quiz=quiz, question=question,
                                            answer=answer, marks=question.marks if answer == question.answer else 0)
-            # prevent duplicate answers & multiple attempts
+            
             try:
                 student_answer.save()
             except:
@@ -225,7 +245,7 @@ def quizResult(request, code, quiz_id):
         return redirect('std_login')
 
 
-# REFACTOR THIS
+
 def quizSummary(request, code, quiz_id):
     if is_faculty_authorised(request, code):
         course = Course.objects.get(code=code)
@@ -243,7 +263,8 @@ def quizSummary(request, code, quiz_id):
                 question=question, answer='C').count()
             question.D = StudentAnswer.objects.filter(
                 question=question, answer='D').count()
-        # students who have attempted the quiz and their marks
+
+        
         students = Student.objects.filter(course=course)
         for student in students:
             student_answers = StudentAnswer.objects.filter(
@@ -257,7 +278,7 @@ def quizSummary(request, code, quiz_id):
             quiz.publish_status = True
             quiz.save()
             return redirect('quizSummary', code=code, quiz_id=quiz.id)
-        # check if student has attempted the quiz
+        
         for student in students:
             if StudentAnswer.objects.filter(student=student, quiz=quiz).count() > 0:
                 student.attempted = True

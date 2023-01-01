@@ -1,11 +1,10 @@
 from venv import create
 from django.db import models
 from main.models import Student, Course
-
-
 # Create your models here.
+STATUS = ((0, "Draft"),(2,"Archived"), (1, "Published"))
 
-
+    
 class Quiz(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
@@ -16,6 +15,8 @@ class Quiz(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     publish_status = models.BooleanField(default=False, null=True, blank=True)
     started = models.BooleanField(default=False, null=True, blank=True)
+    
+    status = models.IntegerField(choices=STATUS, default=1)
 
     class Meta:
         verbose_name_plural = "Quizzes"
@@ -52,7 +53,7 @@ class Quiz(models.Model):
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     question = models.TextField()
-    marks = models.IntegerField(default=0, null=False)
+    marks = models.IntegerField(default=1, null=False)
     option1 = models.TextField(null=False, blank=False, default='',)
     option2 = models.TextField(null=False, blank=False, default='')
     option3 = models.TextField(null=False, blank=False, default='')

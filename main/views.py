@@ -110,8 +110,7 @@ def std_logout(request):
 def myCourses(request):
     try:
         if request.session.get('student_id'):
-            student = Student.objects.get(
-                student_id=request.session['student_id'])
+            student = Student.objects.get(student_id=request.session['student_id'])
             courses = student.course.all()
             faculty = student.course.all().values_list('faculty_id', flat=True)
 
@@ -128,18 +127,23 @@ def myCourses(request):
         return render(request, 'error.html')
 
 
+
+            
+
 # Display all courses (faculty view)
 def facultyCourses(request):
     try:
         if request.session['faculty_id']:
             faculty = Faculty.objects.get(faculty_id=request.session['faculty_id'])
             
-            # count Student
-            #student_count = Student.objects.all().count
-            course_count = Course.objects.all().count
 
+            # count Student
+            student_count = Student.objects.all().count
+            
+            course_count = Course.objects.all().count
             courses = Course.objects.filter(faculty_id=request.session['faculty_id'])
-            studentCount = Student.objects.all().count
+          
+            
 
             # Student count of each course to show on the faculty page
             studentCount = Course.objects.all().annotate(student_count=Count('students'))
@@ -159,8 +163,7 @@ def facultyCourses(request):
                 'faculty': faculty,
                 'studentCount': studentCountDict,
                 'course_count':course_count,
-                
-
+                'student_count':student_count
             }
 
             return render(request, 'main/facultyCourses.html', context)
@@ -251,7 +254,6 @@ def course_page_faculty(request, code):
     else:
         return redirect('std_login')
 
-
 def error(request):
     return render(request, 'error.html')
 
@@ -273,6 +275,8 @@ def profile(request, id):
                 return redirect('std_login')
         except:
             return render(request, 'error.html')
+
+
 
 
 def addAnnouncement(request, code):
@@ -643,21 +647,19 @@ def updateAnnouncement(request, code, id):
 def courses(request):
     if request.session.get('student_id') or request.session.get('faculty_id'):
 
-        courses = Course.objects.all()
+        courses = Course.objects.filter(faculty_id=request.session['faculty_id'])
         if request.session.get('student_id'):
             student = Student.objects.get(
                 student_id=request.session['student_id'])
         else:
             student = None
         if request.session.get('faculty_id'):
-            faculty = Faculty.objects.get(
-                faculty_id=request.session['faculty_id'])
+            faculty = Faculty.objects.get(faculty_id=request.session['faculty_id'])
         else:
             faculty = None
 
         enrolled = student.course.all() if student else None
-        accessed = Course.objects.filter(
-            faculty_id=faculty.faculty_id) if faculty else None
+        accessed = Course.objects.filter(faculty_id=faculty.faculty_id) if faculty else None
 
         context = {
             'faculty': faculty,
@@ -675,15 +677,13 @@ def courses(request):
 
 def departments(request):
     if request.session.get('student_id') or request.session.get('faculty_id'):
-        departments = Department.objects.filter(id=id).first()
+        departments = Department.objects.filter()
         if request.session.get('student_id'):
-            student = Student.objects.get(
-                student_id=request.session['student_id'])
+            student = Student.objects.get(student_id=request.session['student_id'])
         else:
             student = None
         if request.session.get('faculty_id'):
-            faculty = Faculty.objects.get(
-                faculty_id=request.session['faculty_id'])
+            faculty = Faculty.objects.get(faculty_id=request.session['faculty_id'])
         else:
             faculty = None
         context = {
